@@ -7,3 +7,4 @@
 3. Run `bundle install`
 4. To start development server run `jekyll serve --watch`
 5. Change the pages based on your need
+6. TEST
