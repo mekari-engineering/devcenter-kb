@@ -23,8 +23,8 @@ email: support@mekari.com
 description: Explore our guides and examples to integrate Mekari products.
 baseurl: "/docs/kb" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
+twitter_username: mekaricom
+github_username:  mekari-engineering
 
 # Build settings
 theme: just-the-docs
