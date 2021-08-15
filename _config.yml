@@ -18,11 +18,9 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Developer Center
-email: your-email@example.com
-description: >- # this means to ignore newlines until "baseurl:"
-  Biarkan Mekari mengurus proses absensi, payroll, pembukuan, sampai ke perpajakan 
-  sehingga Anda bisa lebih fokus ke pengembangan bisnis.
+title: Mekari Developers Documentation
+email: support@mekari.com
+description: Explore our guides and examples to integrate Mekari products.
 baseurl: "/docs/kb" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb
