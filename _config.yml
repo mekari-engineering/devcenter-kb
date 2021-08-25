@@ -30,6 +30,8 @@ github_username:  mekari-engineering
 theme: just-the-docs
 remote_theme: fians/just-the-docs
 
+# Disable aux links
+aux_links: false
 
 # Exclude from processing.
 # The following items will not be processed, by default.
