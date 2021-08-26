@@ -136,7 +136,7 @@ curl --request POST 'https://examples.com/foo/bar' \
 --header 'Authorization: hmac username="CLIENT_ID", algorithm="hmac-sha256", headers="date request-line", signature="sAeAGN144UQzvBRXJexDIEzJehw52fsMqfEOov2XQcQ="' \
 --header 'Date: Tue, 24 Aug 2021 02:18:19 GMT' \
 --header 'Content-Type: application/json' \
---header 'Digest: X48E9qOokqqrvdts8nOJRJN3OWDUoyWxBf7kbu9DBPE=' \
+--header 'Digest: SHA-256=X48E9qOokqqrvdts8nOJRJN3OWDUoyWxBf7kbu9DBPE=' \
 --data-raw '{"hello": "world"}'
 ```
 
