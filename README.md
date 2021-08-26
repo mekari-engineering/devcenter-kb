@@ -1,10 +1,9 @@
-# Mekari Developer Center - Knowledge Base
+# Mekari Developer Knowledge Base
 
-### How to contribute
+The open source version of the Mekari Developer documentation. To submit feedback or requests for changes, submit an issue or make changes and submit a pull request.
 
-1. Install [Jekyll](https://jekyllrb.com)
-2. Install [Bundler](https://bundler.io)
-3. Run `bundle install`
-4. To start development server run `jekyll serve --watch`
-5. Change the pages based on your need
-6. TEST
+## License Summary
+
+The documentation is made available under the Creative Commons Attribution-ShareAlike 4.0 International License. See the LICENSE file.
+
+The sample code within this documentation is made available under a modified MIT license. See the LICENSE-SAMPLECODE file.
