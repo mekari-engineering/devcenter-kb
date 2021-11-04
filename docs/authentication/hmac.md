@@ -104,7 +104,7 @@ The `Date` header is also used to prevent replay attacks and has a clock skew of
 ## Body Validation
 {: .fw-300 }
 
-We also provide Body Validation for your API request to make it more secure. This will improve your request's defense against Man-in-the-Middle attacks (MITM). For the time being, we've made body validation optional. If you want to use body validation protection, you can add a new header to your request called `Digest`, which contains the SHA-256 hash of your request body, which is frequently required when performing a `POST`, `PUT`, `PATCH`, or `DELETE` request.
+You need to provide Body Validation on your API request. This is because we need protect the API call from Man-in-the-Middle attacks (MITM). To do this, you need add a new header to your request called `Digest`, which contains the SHA-256 hash of your request body, which is required when performing a `POST`, `PUT`, `PATCH`, or `DELETE` request.
 
 The `Digest` header should be formatted as follows:
 
