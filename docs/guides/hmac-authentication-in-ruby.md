@@ -22,16 +22,23 @@ source "https://rubygems.org"
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 ```
 
-We will need [Faraday](https://lostisland.github.io/faraday) to make HTTP requests to the Mekari API and we will put all credentials on .env since  we don't want to Mekari API client ID and client secret exposed directly on the code. 
+We will need to add faraday to Gemfile [Faraday](https://lostisland.github.io/faraday) for  HTTP requests to the Mekari API.
+```
+# Gemfile
+gem 'faraday'
+```
+
+And we will put all credentials on .env since  we don't want to Mekari API client ID and client secret exposed directly on the code. To load the .env, we will need [Doetenv](https://github.com/bkeepers/dotenv) .
 
 ```
-$ gem install dotenv
+# Gemfile
+gem 'dotenv'
 ```
 
 ## Making API Request
 {: .fw-300 }
 
-Using Faraday that we have installed earlier, we are going to setup Ruby script that will perform API request to one of Klikpajak API endpoint which is [create sales invoice](https://documenter.getpostman.com/view/17365057/U16hrR5d#63ba32aa-0f91-44a5-ab40-a0da6a8bf608) (`https://api.mekari.com/v2/klikpajak/v1/efaktur/out`). 
+Using Faraday and Dotenv that we have installed earlier, we are going to setup Ruby script that will perform API request to one of Klikpajak API endpoint which is [create sales invoice](https://documenter.getpostman.com/view/17365057/U16hrR5d#63ba32aa-0f91-44a5-ab40-a0da6a8bf608) (`https://api.mekari.com/v2/klikpajak/v1/efaktur/out`). 
 
 We create the script called `main.rb` then use Faraday to perform the HTTP POST request. This is how the script will looks like:
 
@@ -43,10 +50,10 @@ response = Faraday.post("#{ENV['MEKARI_API_BASE_URL']}/#{path}", nil, headers)
 puts "Got response with status: #{response.status}, body: #{response.body}"
 ```
 
-We can run the script on the console by typing `dotenv -f .env ruby main.rb`. Because we just created a plain HTTP POST request, it will has an error response similar to this: 
+We can run the script on the console by typing `ruby main.rb`. Because we just created a plain HTTP POST request, it will has an error response similar to this: 
 
 ```
-$ dotenv -f .env ruby main.rb
+$ ruby main.rb
 Got response with status: 401, body: {"message":"Unauthorized"}
 ```
 
@@ -58,10 +65,6 @@ Got response with status: 401, body: {"message":"Unauthorized"}
 The code will look like this: 
 
 ```
-<?php // main.php
-
-use Carbon\Carbon;
-
 // ... the rest of the code
 
 datetime = Time.now.httpdate
@@ -76,11 +79,11 @@ puts "hmac username=\"YOUR_MEKARI_API_CLIENT_ID", algorithm=\"hmac-sha256\", hea
 If you replace `datetime` with `Wed, 10 Nov 2021 07:24:29 GMT` and run the code, you will get the following result.
 
 ```
-$ dotenv -f .env ruby main.rb
+$ ruby main.rb
 hmac username="YOUR_MEKARI_API_CLIENT_ID", algorithm="hmac-sha256", headers="date request-line", signature="RDHVOBEGBcr86Eyv2Dg42PcwDlTDY4QoJOdkd9w5L0M="
 ```
 
-It is important to note that we should not include any credentials in our codebase. This means that we must save the Mekari API client id and client secret that you obtained from the Mekari Developer dashboard to an environment variable. Modern full-stack frameworks, such as Laravel, usually include an `.env` file to make managing environment variables easier. This is also why phpdotenv was installed. We can use this library to move the client id and client secret to the `.env` file. 
+It is important to note that we should not include any credentials in our codebase. This means that we must save the Mekari API client id and client secret that you obtained from the Mekari Developer dashboard to an environment variable. Modern full-stack frameworks, such as Laravel, usually include an `.env` file to make managing environment variables easier. This is also why Dotenv was installed. We can use this library to move the client id and client secret to the `.env` file. 
 
 ```
 # .env file
@@ -93,11 +96,10 @@ Then we use `ENV` to replace the credentials in the code.
 ```
 // main.rb
 
-use Carbon\Carbon;
-use Dotenv\Dotenv;
-
-$dotenv = Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+require 'time'
+require 'base64'
+require 'openssl'
+require 'faraday'
 
 // ... the rest of the code
 
@@ -120,6 +122,9 @@ require 'time'
 require 'base64'
 require 'openssl'
 require 'faraday'
+require 'dotenv'
+
+Dotenv.load
 
 # Generate headers to be used on API call.
 #
