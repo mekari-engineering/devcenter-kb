@@ -4,6 +4,7 @@ title: OAuth2
 permalink: /authentication/oauth2
 nav_order: 2
 parent: Authentication
+nav_exclude: true
 ---
 
 # OAuth2 Authentication

@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Product API
+title: Product APIs
 permalink: product-api
 nav_order: 4
 ---
 
-# Product API
+# Product APIs
 
 Currently we documents the detail of API that we provide for you in Postman Collection. Feel free to explore the APIs details below.
 
