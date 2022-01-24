@@ -1,12 +1,12 @@
 ---
 layout: page
-title: HMAC Authentication in Ruby
-permalink: /examples/hmac-authentication-in-ruby
-nav_order: 0
-parent: Guides
+title: Ruby
+permalink: /hmac-authentication/ruby
+nav_order: 2
+parent: HMAC Authentication
 ---
 
-# HMAC Authentication in Ruby
+# Setup HMAC Authentication in Ruby
 
 We will be using [Ruby](https://www.ruby-lang.org) version 2.7 (v2.7.4) and [Bundler](https://bundler.io) version 2.1.4. We assume you are already familiar with Ruby and have Bundler installed on your system. Let's get started.
 

@@ -1,12 +1,12 @@
 ---
 layout: page
-title: HMAC Authentication in Node.js
-permalink: /examples/hmac-authentication-in-node
-nav_order: 0
-parent: Guides
+title: Node.js
+permalink: /hmac-authentication/node
+nav_order: 1
+parent: HMAC Authentication
 ---
 
-# HMAC Authentication in Node.js
+# Setup HMAC Authentication in Node.js
 
 We will be using [Node.js](https://nodejs.org/en/download/) version 16 (v16.13.0) and [npm](https://getcomposer.org/) version 8 (v8.1.0). We assume you are already familiar with Node.js and have npm installed on your system. Let's get started.
 

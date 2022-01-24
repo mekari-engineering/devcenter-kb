@@ -1,12 +1,12 @@
 ---
 layout: page
-title: HMAC Authentication in Java 8
-permalink: /examples/hmac-authentication-in-java8
-nav_order: 0
-parent: Guides
+title: Java 8
+permalink: /hmac-authentication/java
+nav_order: 3
+parent: HMAC Authentication
 ---
 
-# HMAC Authentication in Java 8
+# Setup HMAC Authentication in Java 8
 
 We will be using [Java 8](https://www.java.com/en/download/) version 8 and use [maven](https://maven.apache.org/download.cgi) to manage dependency. We assume you are already familiar with Java and have it installed on your system. Let's get started.
 

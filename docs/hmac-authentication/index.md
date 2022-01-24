@@ -1,9 +1,9 @@
 ---
 layout: page
-title: HMAC
-permalink: /authentication/hmac
-nav_order: 2
-parent: Authentication
+title: HMAC Authentication
+permalink: /hmac-authentication
+nav_order: 3
+has_children: true
 ---
 
 # HMAC Authentication
@@ -140,5 +140,5 @@ curl --request POST 'https://examples.com/foo/bar' \
 --data-raw '{"hello": "world"}'
 ```
 
-The actual implementation may differ depending on the programming language used. Please consider looking at [guides]({{ site.baseurl }}/guides) to see the examples of the code.
+The actual implementation may differ depending on the programming language used. Please consider looking at to see the examples of the code below.
 

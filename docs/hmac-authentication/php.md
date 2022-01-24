@@ -1,12 +1,12 @@
 ---
 layout: page
-title: HMAC Authentication in PHP
-permalink: /examples/hmac-authentication-in-php
+title: PHP
+permalink: /hmac-authentication/php
 nav_order: 0
-parent: Guides
+parent: HMAC Authentication
 ---
 
-# HMAC Authentication in PHP
+# Setup HMAC Authentication in PHP
 
 We will be using [PHP](https://www.php.net/manual/en/install.php) version 8 (v8.0.12) and [Composer](https://getcomposer.org/) version 2 (v2.1.11). We assume you are already familiar with PHP and have Composer installed on your system. Let's get started.
 
