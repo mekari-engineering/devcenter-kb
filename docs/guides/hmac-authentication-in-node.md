@@ -47,7 +47,7 @@ Once installed, your `dependencies` attribute on the `package.json` will look so
 ## Making API Request
 {: .fw-300 }
 
-Using GuzzleHTTP that we have installed earlier, we are going to setup PHP script that will perform API request to one of Klikpajak API endpoint which is [create sales invoice](https://documenter.getpostman.com/view/17365057/U16hrR5d#63ba32aa-0f91-44a5-ab40-a0da6a8bf608) (`https://api.mekari.com/v2/klikpajak/v1/efaktur/out`). 
+Using Axios that we have installed earlier, we are going to setup a script that will perform API request to one of Klikpajak API endpoint which is [create sales invoice](https://documenter.getpostman.com/view/17365057/U16hrR5d#63ba32aa-0f91-44a5-ab40-a0da6a8bf608) (`https://api.mekari.com/v2/klikpajak/v1/efaktur/out`). 
 
 We create the script called `main.js` then use Axios to perform the HTTP POST request. This is how the script will looks like:
 
