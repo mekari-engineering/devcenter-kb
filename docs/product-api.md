@@ -13,7 +13,7 @@ Currently we documents the detail of API that we provide for you in Postman Coll
 {: .fw-300 }
 
 <span class="fs-3">
-[Postman Collections Talenta API](https://documenter.getpostman.com/view/12246328/TWDTKxrn){: .btn }
+[Postman Collections Talenta API](https://documenter.getpostman.com/view/12246328/UVR5qp6v){: .btn }
 </span>
 
 ## Klikpajak
