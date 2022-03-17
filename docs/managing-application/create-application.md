@@ -13,6 +13,13 @@ parent: Managing Applications
 
 Before continue on this guide, you need to make sure that your account has been authorized to Mekari Developer. To check it you can login login then if your dashboard show an empty page, this means you account has not been authorized. Please contact your specialist or support if you want to access to Mekari Developer.
 
+### For Talenta Company
+{: .fs-4 }
+
+To start the integration, please contact our team, by providing your email, company_name & company_id to talenta-integration[at]mekari.com. The email must be registered and can access the company_name or company_id on [https://hr.talenta.co/](https://hr.talenta.co/)
+
+Next, we will notice if your email has been successfully registered to [Mekari Developer](https://developers.mekari.com/) and once registered, you can generate HMAC and connect to Talenta API by following the instruction below.
+
 ## Create Application
 {: .fs-5 }
 
