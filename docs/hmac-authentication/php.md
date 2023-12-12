@@ -56,14 +56,14 @@ $client = new GuzzleHttp\Client([
     'base_uri' => 'https://api.mekari.com/v2/klikpajak/v1'
 ]);
 
-$response = $client->request('POST', 'efaktur/out');
+$response = $client->request('POST', 'efaktur/out?auto_approval=false');
 ```
 
 We can run the script on the console by typing `php main.php`. Because we just created a plain HTTP POST request, it will throw an error similar to this: 
 
 ```
 $ php main.php
-PHP Fatal error:  Uncaught GuzzleHttp\Exception\ClientException: Client error: `POST https://api.mekari.com/v2/klikpajak/efaktur/out` resulted in a `401 Unauthorized` response:
+PHP Fatal error:  Uncaught GuzzleHttp\Exception\ClientException: Client error: `POST https://api.mekari.com/v2/klikpajak/efaktur/out?auto_approval=false` resulted in a `401 Unauthorized` response:
 {"message":"Unauthorized"}
  in /working/directory/vendor/guzzlehttp/guzzle/src/Exception/RequestException.php:113
 Stack trace: ...
@@ -84,7 +84,7 @@ $client = new GuzzleHttp\Client([
 ]);
 
 try {
-    $response = $client->request('POST', 'efaktur/out');
+    $response = $client->request('POST', 'efaktur/out?auto_approval=false');
 } catch (ClientException $e) {
     echo Psr7\Message::toString($e->getRequest());
     echo Psr7\Message::toString($e->getResponse());
@@ -96,7 +96,7 @@ When we run the script again, the error message will be as follows:
 
 ```
 $ php main.php
-POST /v2/klikpajak/efaktur/out HTTP/1.1
+POST /v2/klikpajak/efaktur/out?auto_approval=false HTTP/1.1
 User-Agent: GuzzleHttp/7
 Host: api.mekari.com
 
@@ -113,7 +113,7 @@ server: Mekari
 ## Creating HMAC Signature
 {: .fw-300 }
 
-[The signature](/docs/kb/authentication/hmac#generating-signature) is one of the requirements for forming an API request with HMAC Authentication. The signature is an HMAC256 representation of the request line (a combination of the request method, the request path, and `HTTP/1`.1) and the `Date` header in [RFC 7231](https://www.ietf.org/rfc/rfc7231.txt) format. Carbon will be used to generate the date string for us. The signature must then be converted into a Base64 string so that it can be attached to the `Authorization` header.
+[The signature](/docs/kb/authentication/hmac#generating-signature) is one of the requirements for forming an API request with HMAC Authentication. The signature is an HMAC256 representation of the request line (a combination of the request method, the request path, the query param, and `HTTP/1.1`) and the `Date` header in [RFC 7231](https://www.ietf.org/rfc/rfc7231.txt) format. Carbon will be used to generate the date string for us. The signature must then be converted into a Base64 string so that it can be attached to the `Authorization` header.
 
 The code will look like this: 
 
@@ -125,7 +125,7 @@ use Carbon\Carbon;
 // ... the rest of the code
 
 $datetime       = Carbon::now()->toRfc7231String();
-$request_line   = "POST /v2/klikpajak/v1/efaktur/out  HTTP/1.1";
+$request_line   = "POST /v2/klikpajak/v1/efaktur/out?auto_approval=false HTTP/1.1";
 $payload        = implode("\n", ["date: {$datetime}", $request_line]);
 $digest         = hash_hmac('sha256', $payload, 'YOUR_MEKARI_CLIENT_SECRET', true);
 $signature      = base64_encode($digest);
@@ -137,7 +137,7 @@ If you replace `$datetime` with `Wed, 10 Nov 2021 07:24:29 GMT` and run the code
 
 ```
 $ php main.php
-hmac username="YOUR_MEKARI_API_CLIENT_ID", algorithm="hmac-sha256", headers="date request-line", signature="RDHVOBEGBcr86Eyv2Dg42PcwDlTDY4QoJOdkd9w5L0M="
+hmac username="YOUR_MEKARI_API_CLIENT_ID", algorithm="hmac-sha256", headers="date request-line", signature="tsu8HPllS6C/7iF794Fcm7De77c2uAOQax93fIpI43k="
 ```
 
 It is important to note that we should not include any credentials in our codebase. This means that we must save the Mekari API client id and client secret that you obtained from the Mekari Developer dashboard to an environment variable. Modern full-stack frameworks, such as Laravel, usually include an `.env` file to make managing environment variables easier. This is also why phpdotenv was installed. We can use this library to move the client id and client secret to the `.env` file. 
@@ -162,7 +162,7 @@ $dotenv->load();
 // ... the rest of the code
 
 $datetime       = Carbon::now()->toRfc7231String();
-$request_line   = "POST /v2/klikpajak/v1/efaktur/out  HTTP/1.1";
+$request_line   = "POST /v2/klikpajak/v1/efaktur/out?auto_approval=false  HTTP/1.1";
 $payload        = implode("\n", ["date: {$datetime}", $request_line]);
 $digest         = hash_hmac('sha256', $payload, $_ENV['MEKARI_API_CLIENT_SECRET'], true);
 $signature      = base64_encode($digest);
@@ -193,9 +193,9 @@ $dotenv->load();
 /**
  * Generate authentication headers based on method and path
  */
-function generate_headers($method, $path) {
+function generate_headers($method, $pathWithQueryParam) {
     $datetime       = Carbon::now()->toRfc7231String();
-    $request_line   = "{$method} {$path} HTTP/1.1";
+    $request_line   = "{$method} {$pathWithQueryParam} HTTP/1.1";
     $payload        = implode("\n", ["date: {$datetime}", $request_line]);
     $digest         = hash_hmac('sha256', $payload, $_ENV['MEKARI_API_CLIENT_SECRET'], true);
     $signature      = base64_encode($digest);
@@ -214,6 +214,7 @@ $client = new GuzzleHttp\Client([
 
 $method     = 'POST';
 $path       = '/v2/klikpajak/v1/efaktur/out';
+$queryParam = '?auto_approval=false';
 $headers    = [
     'X-Idempotency-Key' => '1234'
 ];
@@ -221,8 +222,8 @@ $body       = [/* request body */];
 
 // Initiate request
 try {
-    $response = $client->request($method, $path, [
-        'headers'   => array_merge(generate_headers($method, $path), $headers),
+    $response = $client->request($method, $path . $queryParam, [
+        'headers'   => array_merge(generate_headers($method, $path . $queryParam), $headers),
         'body'      => json_encode($body)
     ]);
 
