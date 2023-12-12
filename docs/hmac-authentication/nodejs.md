@@ -147,7 +147,7 @@ If you replace `datetime` with `Wed, 10 Nov 2021 07:24:29 GMT` and run the code,
 
 ```
 $ node main.js
-hmac username="YOUR_MEKARI_CLIENT_SECRET", algorithm="hmac-sha256", headers="date request-line", signature="cmEExqmbpbVDerhttLiy854Qs95VYeACCnqFiXuyccY="
+hmac username="YOUR_MEKARI_CLIENT_SECRET", algorithm="hmac-sha256", headers="date request-line", signature="tsu8HPllS6C/7iF794Fcm7De77c2uAOQax93fIpI43k="
 ```
 
 It is important to note that we should not include any credentials in our codebase. This means that we must save the Mekari API client id and client secret that you obtained from the Mekari Developer dashboard to an environment variable. Modern full-stack frameworks, such as Laravel, usually include an `.env` file to make managing environment variables easier. This is also why phpdotenv was installed. We can use this library to move the client id and client secret to the `.env` file. 
