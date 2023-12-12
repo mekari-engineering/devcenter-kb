@@ -44,6 +44,7 @@ We create the script called `main.rb` then use Faraday to perform the HTTP POST 
 
 ```
 path = '/v2/klikpajak/v1/efaktur/out/'
+queryParam = '?auto_approval=false'
 headers = { 'X-Idempotency-Key' => '1234' }
 response = Faraday.post("#{ENV['MEKARI_API_BASE_URL']}/#{path}", nil, headers)
 
@@ -60,7 +61,7 @@ Got response with status: 401, body: {"message":"Unauthorized"}
 ## Creating HMAC Signature
 {: .fw-300 }
 
-[The signature](/docs/kb/authentication/hmac#generating-signature) is one of the requirements for forming an API request with HMAC Authentication. The signature is an HMAC256 representation of the request line (a combination of the request method, the request path, and `HTTP/1`.1) and the `Date` header in [RFC 7231](https://www.ietf.org/rfc/rfc7231.txt) format. Carbon will be used to generate the date string for us. The signature must then be converted into a Base64 string so that it can be attached to the `Authorization` header.
+[The signature](/docs/kb/authentication/hmac#generating-signature) is one of the requirements for forming an API request with HMAC Authentication. The signature is an HMAC256 representation of the request line (a combination of the request method, the request path, the query params and `HTTP/1.1`) and the `Date` header in [RFC 7231](https://www.ietf.org/rfc/rfc7231.txt) format. Carbon will be used to generate the date string for us. The signature must then be converted into a Base64 string so that it can be attached to the `Authorization` header.
 
 The code will look like this: 
 
@@ -68,7 +69,7 @@ The code will look like this:
 // ... the rest of the code
 
 datetime = Time.now.httpdate
-request_line = "POST /v2/klikpajak/v1/efaktur/out HTTP/1.1"
+request_line = "POST /v2/klikpajak/v1/efaktur/out?auto_approval=false HTTP/1.1"
 payload = [datetime, request_line].join("\n")
 digest = OpenSSL::HMAC.digest(OpenSSL::Digest.new('sha256'), 'YOUR_MEKARI_API_CLIENT_SECRET', payload)
 signature = Base64.strict_encode64(digest)
@@ -80,7 +81,7 @@ If you replace `datetime` with `Wed, 10 Nov 2021 07:24:29 GMT` and run the code,
 
 ```
 $ ruby main.rb
-hmac username="YOUR_MEKARI_API_CLIENT_ID", algorithm="hmac-sha256", headers="date request-line", signature="RDHVOBEGBcr86Eyv2Dg42PcwDlTDY4QoJOdkd9w5L0M="
+hmac username="YOUR_MEKARI_API_CLIENT_ID", algorithm="hmac-sha256", headers="date request-line", signature="tsu8HPllS6C/7iF794Fcm7De77c2uAOQax93fIpI43k="
 ```
 
 It is important to note that we should not include any credentials in our codebase. This means that we must save the Mekari API client id and client secret that you obtained from the Mekari Developer dashboard to an environment variable. Modern full-stack frameworks, such as Laravel, usually include an `.env` file to make managing environment variables easier. This is also why Dotenv was installed. We can use this library to move the client id and client secret to the `.env` file. 
@@ -104,7 +105,7 @@ require 'faraday'
 // ... the rest of the code
 
 datetime = Time.now.httpdate
-request_line = "POST /v2/klikpajak/v1/efaktur/out HTTP/1.1"
+request_line = "POST /v2/klikpajak/v1/efaktur/out?auto_approval=false HTTP/1.1"
 payload = [datetime, request_line].join("\n")
 digest = OpenSSL::HMAC.digest(OpenSSL::Digest.new('sha256'), ENV['MEKARI_API_CLIENT_SECRET'], payload)
 signature = Base64.strict_encode64(digest)
@@ -129,9 +130,9 @@ Dotenv.load
 # Generate headers to be used on API call.
 #
 # @return [Hash<String, Object>]
-def generate_headers(method, path)
+def generate_headers(method, pathWithQueryParam)
   datetime = Time.now.httpdate
-  request_line = "#{method} #{path} HTTP/1.1"
+  request_line = "#{method} #{pathWithQueryParam} HTTP/1.1"
   payload = ["date: #{datetime}", request_line].join("\n")
   digest = OpenSSL::HMAC.digest(OpenSSL::Digest.new('sha256'), ENV['MEKARI_API_CLIENT_SECRET'], payload)
 
@@ -147,8 +148,9 @@ end
 # Set method and path for the request
 method = 'POST'
 path = '/v2/klikpajak/v1/efaktur/out'
+queryParam = '?auto_approval=false'
 default_headers = { 'X-Idempotency-Key' => '1234' }
-request_headers = default_headers.merge(generate_headers(method, path))
+request_headers = default_headers.merge(generate_headers(method, path + queryParam))
 
 puts "Start request with url: #{ENV['MEKARI_API_BASE_URL']}#{path}, headers: #{request_headers}"
 
