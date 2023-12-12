@@ -110,7 +110,7 @@ We can try run the script now but will immediately get Unauthorized response due
 ## Creating HMAC Signature
 {: .fw-300 }
 
-[The signature](/docs/kb/authentication/hmac#generating-signature) is one of the requirements for forming an API request with HMAC Authentication. The signature is an HMAC256 representation of the request line (a combination of the request method, the request path, and `HTTP/1`.1) and the `Date` header in [RFC 7231](https://www.ietf.org/rfc/rfc7231.txt) format. Carbon will be used to generate the date string for us. The signature must then be converted into a Base64 string so that it can be attached to the `Authorization` header.
+[The signature](/docs/kb/authentication/hmac#generating-signature) is one of the requirements for forming an API request with HMAC Authentication. The signature is an HMAC256 representation of the request line (a combination of the request method, the request path, the query param and `HTTP/1`.1) and the `Date` header in [RFC 7231](https://www.ietf.org/rfc/rfc7231.txt) format. The signature must then be converted into a Base64 string so that it can be attached to the `Authorization` header.
 
 The full request will look like this: 
 
@@ -125,7 +125,7 @@ Request request = new Request.Builder()
     .post(body)
     .addHeader("Date", getDateTimeNowUtcString())
     .addHeader("Authorization",
-        generateAuthSignature(clientId, clientSecret, method, path, getDateTimeNowUtcString())
+        generateAuthSignature(clientId, clientSecret, method, path + queryParam, getDateTimeNowUtcString())
     )
     .build();
 
@@ -149,9 +149,9 @@ To generate the Authorization Header we use these functions
 ```
 private static String generateAuthSignature(
     String clientId, String clientSecret, String method,
-    String path, String dateString
+    String pathWithQueryParam, String dateString
 ) {
-    String payload = generatePayload(path, method, dateString);
+    String payload = generatePayload(pathWithQueryParam, method, dateString);
     String signature = hmacSha256(clientSecret, payload);
 
     return "hmac username=\"" + clientId
@@ -159,8 +159,8 @@ private static String generateAuthSignature(
         + signature + "\"";
 }
 
-private static String generatePayload(String path, String method, String dateString) {
-    String requestLine = method + ' ' + path + " HTTP/1.1";
+private static String generatePayload(String pathWithQueryParam, String method, String dateString) {
+    String requestLine = method + ' ' + pathWithQueryParam + " HTTP/1.1";
     return String.join("\n", Arrays.asList("date: " + dateString, requestLine));
 }
 
@@ -224,7 +224,7 @@ public class HmacGeneratorApplication {
             .post(body)
             .addHeader("Date", getDateTimeNowUtcString())
             .addHeader("Authorization",
-                generateAuthSignature(clientId, clientSecret, method, path, getDateTimeNowUtcString())
+                generateAuthSignature(clientId, clientSecret, method, path + queryParam, getDateTimeNowUtcString())
             )
             .addHeader("x-idempotency-key", UUID.randomUUID().toString())
             .build();
@@ -240,9 +240,9 @@ public class HmacGeneratorApplication {
 
     private static String generateAuthSignature(
         String clientId, String clientSecret, String method,
-        String path, String dateString
+        String pathWithQueryParam, String dateString
     ) {
-        String payload = generatePayload(path, method, dateString);
+        String payload = generatePayload(pathWithQueryParam, method, dateString);
         String signature = hmacSha256(clientSecret, payload);
 
         return "hmac username=\"" + clientId
@@ -250,8 +250,8 @@ public class HmacGeneratorApplication {
             + signature + "\"";
     }
 
-    private static String generatePayload(String path, String method, String dateString) {
-        String requestLine = method + ' ' + path + " HTTP/1.1";
+    private static String generatePayload(String pathWithQueryParam, String method, String dateString) {
+        String requestLine = method + ' ' + pathWithQueryParam + " HTTP/1.1";
         return String.join("\n", Arrays.asList("date: " + dateString, requestLine));
     }
 
