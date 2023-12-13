@@ -47,7 +47,7 @@ Once installed, your `dependencies` attribute on the `package.json` will look so
 ## Making API Request
 {: .fw-300 }
 
-Using Axios that we have installed earlier, we are going to setup a script that will perform API request to one of Klikpajak API endpoint which is [create sales invoice](https://documenter.getpostman.com/view/17365057/U16hrR5d#63ba32aa-0f91-44a5-ab40-a0da6a8bf608) (`https://api.mekari.com/v2/klikpajak/v1/efaktur/out`). 
+Using Axios that we have installed earlier, we are going to setup a script that will perform API request to one of Klikpajak API endpoint which is [create sales invoice](https://documenter.getpostman.com/view/17365057/U16hrR5d#63ba32aa-0f91-44a5-ab40-a0da6a8bf608) (`https://api.mekari.com/v2/klikpajak/v1/efaktur/out`) with query param `?auto_approval=false`. 
 
 We create the script called `main.js` then use Axios to perform the HTTP POST request. This is how the script will looks like:
 
@@ -56,7 +56,7 @@ const axios = require('axios');
 
 axios({
   method: 'POST',
-  url: 'https://api.mekari.com/v2/klikpajak/v1/efaktur/out'
+  url: 'https://api.mekari.com/v2/klikpajak/v1/efaktur/out?auto_approval=false'
 }).then(function (response) {
     console.log(response.data);
   })
@@ -86,7 +86,7 @@ const axios = require('axios');
 
 axios({
   method: 'POST',
-  url: 'https://api.mekari.com/v2/klikpajak/v1/efaktur/out'
+  url: 'https://api.mekari.com/v2/klikpajak/v1/efaktur/out?auto_approval=false'
 }).then(function (response) {
     console.log(response.data);
   })
@@ -128,7 +128,7 @@ $ node main.js
 ## Creating HMAC Signature
 {: .fw-300 }
 
-[The signature](/docs/kb/authentication/hmac#generating-signature) is one of the requirements for forming an API request with HMAC Authentication. The signature is an HMAC256 representation of the request line (a combination of the request method, the request path, and `HTTP/1`.1) and the `Date` header in [RFC 7231](https://www.ietf.org/rfc/rfc7231.txt) format. Carbon will be used to generate the date string for us. The signature must then be converted into a Base64 string so that it can be attached to the `Authorization` header.
+[The signature](/docs/kb/authentication/hmac#generating-signature) is one of the requirements for forming an API request with HMAC Authentication. The signature is an HMAC256 representation of the request line (a combination of the request method, the request path, the query param and `HTTP/1`.1) and the `Date` header in [RFC 7231](https://www.ietf.org/rfc/rfc7231.txt) format. The signature must then be converted into a Base64 string so that it can be attached to the `Authorization` header.
 
 The code will look like this: 
 
@@ -136,7 +136,7 @@ The code will look like this:
 // ... the rest of the code
 
 const datetime = new Date().toUTCString();
-const requestLine = "POST /v2/klikpajak/v1/efaktur/out  HTTP/1.1";
+const requestLine = "POST /v2/klikpajak/v1/efaktur/out?auto_approval=false  HTTP/1.1";
 const payload = [`date: ${datetime}`, requestLine].join('\n');
 const signature = crypto.createHmac('SHA256', 'YOUR_MEKARI_CLIENT_SECRET').update(payload).digest('base64');
 
@@ -147,7 +147,7 @@ If you replace `datetime` with `Wed, 10 Nov 2021 07:24:29 GMT` and run the code,
 
 ```
 $ node main.js
-hmac username="YOUR_MEKARI_CLIENT_SECRET", algorithm="hmac-sha256", headers="date request-line", signature="cmEExqmbpbVDerhttLiy854Qs95VYeACCnqFiXuyccY="
+hmac username="YOUR_MEKARI_CLIENT_SECRET", algorithm="hmac-sha256", headers="date request-line", signature="tsu8HPllS6C/7iF794Fcm7De77c2uAOQax93fIpI43k="
 ```
 
 It is important to note that we should not include any credentials in our codebase. This means that we must save the Mekari API client id and client secret that you obtained from the Mekari Developer dashboard to an environment variable. Modern full-stack frameworks, such as Laravel, usually include an `.env` file to make managing environment variables easier. This is also why phpdotenv was installed. We can use this library to move the client id and client secret to the `.env` file. 
@@ -169,7 +169,7 @@ require('dotenv').config();
 // ... the rest of the code
 
 const datetime = new Date().toUTCString();
-const requestLine = "POST /v2/klikpajak/v1/efaktur/out  HTTP/1.1";
+const requestLine = "POST /v2/klikpajak/v1/efaktur/out?auto_approval=false  HTTP/1.1";
 const payload = [`date: ${datetime}`, requestLine].join('\n');
 const signature = crypto.createHmac('SHA256', process.env.MEKARI_API_CLIENT_SECRET).update(payload).digest('base64');
 
@@ -190,9 +190,9 @@ require('dotenv').config();
 /**
  * Generate authentication headers based on method and path
  */
-function generate_headers(method, path) {
+function generate_headers(method, pathWithQueryParam) {
   let datetime = new Date().toUTCString();
-  let requestLine = `${method} ${path} HTTP/1.1`;
+  let requestLine = `${method} ${pathWithQueryParam} HTTP/1.1`;
   let payload = [`date: ${datetime}`, requestLine].join("\n");
   let signature = crypto.createHmac('SHA256', process.env.MEKARI_API_CLIENT_SECRET).update(payload).digest('base64');
 
@@ -206,6 +206,7 @@ function generate_headers(method, path) {
 // Set method and path for the request
 let method = 'POST';
 let path = '/v2/klikpajak/v1/efaktur/out';
+let queryParam = '?auto_approval=false';
 let headers = {
   'X-Idempotency-Key': '1234'
 };
@@ -213,8 +214,8 @@ let body = {/* request body */};
 
 const options = {
   method: method,
-  url: `${process.env.MEKARI_API_BASE_URL}${path}`,
-  headers: {...generate_headers(method, path), ...headers}
+  url: `${process.env.MEKARI_API_BASE_URL}${path}${queryParam}`,
+  headers: {...generate_headers(method, path + queryParam), ...headers}
 }
 
 // Initiate request

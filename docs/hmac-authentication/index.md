@@ -74,11 +74,11 @@ function generate_hmac_auth_token:
         client_id: string
         client_secret: string
         base_url: string 
-        path: string
+        pathWithQueryParam: string
         http_method: string 
 
     date_rfc_1123 = now().format(RFC7231)
-    signing_string = "date: {{date_rfc_1123}}\n{{http_method}} {{path}} HTTP/1.1"
+    signing_string = "date: {{date_rfc_1123}}\n{{http_method}} {{pathWithQueryParam}} HTTP/1.1"
     digest = HMAC-SHA256(signing_string, client_secret)
     base64_digest = base64(digest)
     hmac_auth_token = `hmac username="{{client_id}}", algorithm="hmac-sha256", headers="date request-line", signature="{{base64_digest}}"`
@@ -132,8 +132,8 @@ Please see our code examples section for a specific implementation in your prefe
 After you've met all of the prerequisites listed above, your API request should look like this in cURL format:
 
 ```
-curl --request POST 'https://examples.com/foo/bar' \
---header 'Authorization: hmac username="CLIENT_ID", algorithm="hmac-sha256", headers="date request-line", signature="sAeAGN144UQzvBRXJexDIEzJehw52fsMqfEOov2XQcQ="' \
+curl --request POST 'https://examples.com/foo/bar?hello=world' \
+--header 'Authorization: hmac username="CLIENT_ID", algorithm="hmac-sha256", headers="date request-line", signature="r70pUQMDXWaFUEWPybBbn9d+ae2naufbIckiT6wcAio="' \
 --header 'Date: Tue, 24 Aug 2021 02:18:19 GMT' \
 --header 'Content-Type: application/json' \
 --header 'Digest: SHA-256=X48E9qOokqqrvdts8nOJRJN3OWDUoyWxBf7kbu9DBPE=' \
