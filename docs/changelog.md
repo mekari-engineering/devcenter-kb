@@ -12,7 +12,7 @@ This changelog lists all additions and updates to the Mekari product API, in chr
 
 {: .fw-300 }
 
-Adding jurnal api docs link.
+Adding jurnal api docs, mekari pay service, kyc-backend api documentation.
 
 
 ## February 22, 2024
