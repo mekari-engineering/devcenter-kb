@@ -37,3 +37,10 @@ Currently we documents the detail of API that we provide for you in Postman Coll
 [Postman Collections Qontak CRM API](https://documenter.getpostman.com/view/22728681/VUxPtmj8){: .btn }
 </span>
 
+## Jurnal API
+{: .fw-300 }
+
+<span class="fs-3">
+[Jurnal Api Stoplight Documentation](https://jurnal-mekari.stoplight.io/){: .btn }
+</span>
+
