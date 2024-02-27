@@ -8,6 +8,13 @@ nav_order: 5
 
 This changelog lists all additions and updates to the Mekari product API, in chronological order.
 
+## February 26,2024
+
+{: .fw-300 }
+
+Adding jurnal api docs, mekari pay service, kyc-backend api documentation.
+
+
 ## February 22, 2024
 
 {: .fw-300 }
