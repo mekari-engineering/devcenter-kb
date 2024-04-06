@@ -123,9 +123,9 @@ String dateFormatted = getDateTimeNowUtcString();
 Request request = new Request.Builder()
     .url(base + path + queryParam)
     .post(body)
-    .addHeader("Date", getDateTimeNowUtcString())
+    .addHeader("Date", dateFormatted)
     .addHeader("Authorization",
-        generateAuthSignature(clientId, clientSecret, method, path + queryParam, getDateTimeNowUtcString())
+        generateAuthSignature(clientId, clientSecret, method, path + queryParam, dateFormatted)
     )
     .build();
 
@@ -222,13 +222,17 @@ public class HmacGeneratorApplication {
         //      Request Body
         String json = "requestBody";
 
-        RequestBody body = RequestBody.create(json, JSON); 
+        RequestBody body = RequestBody.create(json, JSON);
+
+        //      Request Date
+        String dateFormatted = getDateTimeNowUtcString();
+
         Request request = new Request.Builder()
             .url(base + path + queryParam)
             .post(body)
-            .addHeader("Date", getDateTimeNowUtcString())
+            .addHeader("Date", dateFormatted)
             .addHeader("Authorization",
-                generateAuthSignature(clientId, clientSecret, method, path + queryParam, getDateTimeNowUtcString())
+                generateAuthSignature(clientId, clientSecret, method, path + queryParam, dateFormatted)
             )
             .addHeader("x-idempotency-key", UUID.randomUUID().toString())
             .build();
