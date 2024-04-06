@@ -103,7 +103,7 @@ public static void main(String[] args) {
 ```
 
 We can try run the script now but will immediately get Unauthorized response due to no authentication attached in the request.
-```
+```json
 {"message":"Unauthorized"}
 ```
 
