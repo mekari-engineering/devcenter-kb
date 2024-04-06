@@ -16,7 +16,7 @@ We will be using [Java 8](https://www.java.com/en/download/) version 8 and use [
 Because we'll be using maven, make sure you have the `pom.xml` file in the root of your working directory.
 The content of the file should look like this:
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -60,7 +60,7 @@ Using OkHttp Client that we have installed earlier, we are going to setup a scri
 
 We create the script inside the main function:
 
-```
+```java
 public static void main(String[] args) {
 
     OkHttpClient client = new OkHttpClient();
@@ -114,7 +114,7 @@ We can try run the script now but will immediately get Unauthorized response due
 
 The full request will look like this: 
 
-```
+```java
 // ... the rest of the code
 
 //      Request Date
@@ -134,7 +134,7 @@ Call call = client.newCall(request);
 
 To get Date following RFC 7231 format we use this function
 
-```
+```java
 private static String getDateTimeNowUtcString() {
     Instant instant = Instant.now();
     return DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss O")
@@ -146,7 +146,9 @@ private static String getDateTimeNowUtcString() {
 
 To generate the Authorization Header we use these functions
 
-```
+```java
+import java.nio.charset.StandardCharsets;
+
 private static String generateAuthSignature(
     String clientId, String clientSecret, String method,
     String pathWithQueryParam, String dateString
@@ -166,11 +168,11 @@ private static String generatePayload(String pathWithQueryParam, String method, 
 
 private static String hmacSha256(String clientSecret, String payload) {
     try {
-        SecretKeySpec signingKey = new SecretKeySpec(clientSecret.getBytes("UTF-8"), "HmacSHA256");
+        SecretKeySpec signingKey = new SecretKeySpec(clientSecret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
         Mac mac = Mac.getInstance("HmacSHA256");
         mac.init(signingKey);
 
-        return Base64.getEncoder().encodeToString(mac.doFinal(payload.getBytes("UTF-8")));
+        return Base64.getEncoder().encodeToString(mac.doFinal(payload.getBytes(StandardCharsets.UTF_8)));
     } catch (NoSuchAlgorithmException | UnsupportedEncodingException | InvalidKeyException exception) {
         exception.printStackTrace();
         return null;
@@ -191,7 +193,9 @@ MEKARI_API_CLIENT_SECRET=YOUR_MEKARI_CLIENT_SECRET
 
 It's now time to combine everything we've learned.
 
-```
+```java
+import java.nio.charset.StandardCharsets;
+
 public class HmacGeneratorApplication {
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
@@ -258,14 +262,14 @@ public class HmacGeneratorApplication {
     private static String hmacSha256(String clientSecret, String payload) {
         try {
             SecretKeySpec signingKey = new SecretKeySpec(
-                clientSecret.getBytes("UTF-8"), 
+                clientSecret.getBytes(StandardCharsets.UTF_8), 
                 "HmacSHA256"
             );
             Mac mac = Mac.getInstance("HmacSHA256");
             mac.init(signingKey);
 
             return Base64.getEncoder()
-                .encodeToString(mac.doFinal(payload.getBytes("UTF-8")));
+                .encodeToString(mac.doFinal(payload.getBytes(StandardCharsets.UTF_8)));
         } catch (NoSuchAlgorithmException 
             | UnsupportedEncodingException 
             | InvalidKeyException exception
