@@ -8,7 +8,7 @@ parent: HMAC Authentication
 
 # Setup HMAC Authentication in Java 8
 
-We will be using [Java 8](https://www.java.com/en/download/) version 8 and use [maven](https://maven.apache.org/download.cgi) to manage dependency. We assume you are already familiar with Java and have it installed on your system. Let's get started.
+We will be using [Java 8](https://www.java.com/en/download/) and use [maven](https://maven.apache.org/download.cgi) to manage dependency. We assume you are already familiar with Java and have it installed on your system. Let's get started.
 
 ## Install Dependencies
 {: .fw-300 }
@@ -66,7 +66,7 @@ public static void main(String[] args) {
     OkHttpClient client = new OkHttpClient();
 
     //      Request Base URL
-    String base = "https://api-sandbox-sso.mekari.com";
+    String base = "https://api.mekari.com";
 
     //      HMAC User client id
     String clientID = System.getenv("MEKARI_API_CLIENT_ID");
@@ -204,7 +204,7 @@ public class HmacGeneratorApplication {
         OkHttpClient client = new OkHttpClient();
 
         //      Request Base URL
-        String base = "https://api-sandbox-sso.mekari.com";
+        String base = "https://api.mekari.com";
 
         //      HMAC User client id
         String clientId = System.getenv("MEKARI_API_CLIENT_ID");
