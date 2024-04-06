@@ -137,7 +137,7 @@ To get Date following RFC 7231 format we use this function
 ```
 private static String getDateTimeNowUtcString() {
     Instant instant = Instant.now();
-    return DateTimeFormatter.RFC_1123_DATE_TIME
+    return DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss O")
         .withZone(ZoneOffset.UTC)
         .withLocale(Locale.US)
         .format(instant);
@@ -277,7 +277,7 @@ public class HmacGeneratorApplication {
 
     private static String getDateTimeNowUtcString() {
         Instant instant = Instant.now();
-        return DateTimeFormatter.RFC_1123_DATE_TIME
+        return DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss O")
             .withZone(ZoneOffset.UTC)
             .withLocale(Locale.US)
             .format(instant);
