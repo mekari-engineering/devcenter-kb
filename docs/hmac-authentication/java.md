@@ -69,7 +69,7 @@ public static void main(String[] args) {
     String base = "https://api.mekari.com";
 
     //      HMAC User client id
-    String clientID = System.getenv("MEKARI_API_CLIENT_ID");
+    String clientId = System.getenv("MEKARI_API_CLIENT_ID");
 
     //      HMAC User client secret
     String clientSecret = System.getenv("MEKARI_API_CLIENT_SECRET");
@@ -220,7 +220,7 @@ public class HmacGeneratorApplication {
         String queryParam = "?auto_approval=false";
 
         //      Request Body
-        String json = "reequest json";
+        String json = "requestBody";
 
         RequestBody body = RequestBody.create(json, JSON); 
         Request request = new Request.Builder()
