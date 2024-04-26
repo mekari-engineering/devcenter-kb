@@ -8,7 +8,7 @@ parent: HMAC Authentication
 
 # Setup HMAC Authentication in Java 8
 
-We will be using [Java 8](https://www.java.com/en/download/) version 8 and use [maven](https://maven.apache.org/download.cgi) to manage dependency. We assume you are already familiar with Java and have it installed on your system. Let's get started.
+We will be using [Java 8](https://www.java.com/en/download/) and use [maven](https://maven.apache.org/download.cgi) to manage dependency. We assume you are already familiar with Java and have it installed on your system. Let's get started.
 
 ## Install Dependencies
 {: .fw-300 }
@@ -16,7 +16,7 @@ We will be using [Java 8](https://www.java.com/en/download/) version 8 and use [
 Because we'll be using maven, make sure you have the `pom.xml` file in the root of your working directory.
 The content of the file should look like this:
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -60,16 +60,16 @@ Using OkHttp Client that we have installed earlier, we are going to setup a scri
 
 We create the script inside the main function:
 
-```
+```java
 public static void main(String[] args) {
 
     OkHttpClient client = new OkHttpClient();
 
     //      Request Base URL
-    String base = "https://api-sandbox-sso.mekari.com";
+    String base = "https://api.mekari.com";
 
     //      HMAC User client id
-    String clientID = System.getenv("MEKARI_API_CLIENT_ID");
+    String clientId = System.getenv("MEKARI_API_CLIENT_ID");
 
     //      HMAC User client secret
     String clientSecret = System.getenv("MEKARI_API_CLIENT_SECRET");
@@ -103,18 +103,18 @@ public static void main(String[] args) {
 ```
 
 We can try run the script now but will immediately get Unauthorized response due to no authentication attached in the request.
-```
+```json
 {"message":"Unauthorized"}
 ```
 
 ## Creating HMAC Signature
 {: .fw-300 }
 
-[The signature](/docs/kb/authentication/hmac#generating-signature) is one of the requirements for forming an API request with HMAC Authentication. The signature is an HMAC256 representation of the request line (a combination of the request method, the request path, the query param and `HTTP/1`.1) and the `Date` header in [RFC 7231](https://www.ietf.org/rfc/rfc7231.txt) format. The signature must then be converted into a Base64 string so that it can be attached to the `Authorization` header.
+[The signature](/docs/kb/authentication/hmac#generating-signature) is one of the requirements for forming an API request with HMAC Authentication. The signature is an HMAC256 representation of the request line (a combination of the request method, the request path, the query param and `HTTP/1.1`) and the `Date` header in [RFC 7231](https://www.ietf.org/rfc/rfc7231.txt) format. The signature must then be converted into a Base64 string so that it can be attached to the `Authorization` header.
 
 The full request will look like this: 
 
-```
+```java
 // ... the rest of the code
 
 //      Request Date
@@ -123,9 +123,9 @@ String dateFormatted = getDateTimeNowUtcString();
 Request request = new Request.Builder()
     .url(base + path + queryParam)
     .post(body)
-    .addHeader("Date", getDateTimeNowUtcString())
+    .addHeader("Date", dateFormatted)
     .addHeader("Authorization",
-        generateAuthSignature(clientId, clientSecret, method, path + queryParam, getDateTimeNowUtcString())
+        generateAuthSignature(clientId, clientSecret, method, path + queryParam, dateFormatted)
     )
     .build();
 
@@ -134,10 +134,10 @@ Call call = client.newCall(request);
 
 To get Date following RFC 7231 format we use this function
 
-```
+```java
 private static String getDateTimeNowUtcString() {
     Instant instant = Instant.now();
-    return DateTimeFormatter.RFC_1123_DATE_TIME
+    return DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss O")
         .withZone(ZoneOffset.UTC)
         .withLocale(Locale.US)
         .format(instant);
@@ -146,7 +146,9 @@ private static String getDateTimeNowUtcString() {
 
 To generate the Authorization Header we use these functions
 
-```
+```java
+import java.nio.charset.StandardCharsets;
+
 private static String generateAuthSignature(
     String clientId, String clientSecret, String method,
     String pathWithQueryParam, String dateString
@@ -166,11 +168,11 @@ private static String generatePayload(String pathWithQueryParam, String method, 
 
 private static String hmacSha256(String clientSecret, String payload) {
     try {
-        SecretKeySpec signingKey = new SecretKeySpec(clientSecret.getBytes("UTF-8"), "HmacSHA256");
+        SecretKeySpec signingKey = new SecretKeySpec(clientSecret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
         Mac mac = Mac.getInstance("HmacSHA256");
         mac.init(signingKey);
 
-        return Base64.getEncoder().encodeToString(mac.doFinal(payload.getBytes("UTF-8")));
+        return Base64.getEncoder().encodeToString(mac.doFinal(payload.getBytes(StandardCharsets.UTF_8)));
     } catch (NoSuchAlgorithmException | UnsupportedEncodingException | InvalidKeyException exception) {
         exception.printStackTrace();
         return null;
@@ -191,7 +193,9 @@ MEKARI_API_CLIENT_SECRET=YOUR_MEKARI_CLIENT_SECRET
 
 It's now time to combine everything we've learned.
 
-```
+```java
+import java.nio.charset.StandardCharsets;
+
 public class HmacGeneratorApplication {
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
@@ -200,7 +204,7 @@ public class HmacGeneratorApplication {
         OkHttpClient client = new OkHttpClient();
 
         //      Request Base URL
-        String base = "https://api-sandbox-sso.mekari.com";
+        String base = "https://api.mekari.com";
 
         //      HMAC User client id
         String clientId = System.getenv("MEKARI_API_CLIENT_ID");
@@ -216,15 +220,19 @@ public class HmacGeneratorApplication {
         String queryParam = "?auto_approval=false";
 
         //      Request Body
-        String json = "reequest json";
+        String json = "requestBody";
 
-        RequestBody body = RequestBody.create(json, JSON); 
+        RequestBody body = RequestBody.create(json, JSON);
+
+        //      Request Date
+        String dateFormatted = getDateTimeNowUtcString();
+
         Request request = new Request.Builder()
             .url(base + path + queryParam)
             .post(body)
-            .addHeader("Date", getDateTimeNowUtcString())
+            .addHeader("Date", dateFormatted)
             .addHeader("Authorization",
-                generateAuthSignature(clientId, clientSecret, method, path + queryParam, getDateTimeNowUtcString())
+                generateAuthSignature(clientId, clientSecret, method, path + queryParam, dateFormatted)
             )
             .addHeader("x-idempotency-key", UUID.randomUUID().toString())
             .build();
@@ -258,14 +266,14 @@ public class HmacGeneratorApplication {
     private static String hmacSha256(String clientSecret, String payload) {
         try {
             SecretKeySpec signingKey = new SecretKeySpec(
-                clientSecret.getBytes("UTF-8"), 
+                clientSecret.getBytes(StandardCharsets.UTF_8), 
                 "HmacSHA256"
             );
             Mac mac = Mac.getInstance("HmacSHA256");
             mac.init(signingKey);
 
             return Base64.getEncoder()
-                .encodeToString(mac.doFinal(payload.getBytes("UTF-8")));
+                .encodeToString(mac.doFinal(payload.getBytes(StandardCharsets.UTF_8)));
         } catch (NoSuchAlgorithmException 
             | UnsupportedEncodingException 
             | InvalidKeyException exception
@@ -277,7 +285,7 @@ public class HmacGeneratorApplication {
 
     private static String getDateTimeNowUtcString() {
         Instant instant = Instant.now();
-        return DateTimeFormatter.RFC_1123_DATE_TIME
+        return DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss O")
             .withZone(ZoneOffset.UTC)
             .withLocale(Locale.US)
             .format(instant);
