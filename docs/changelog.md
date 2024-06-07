@@ -8,6 +8,12 @@ nav_order: 5
 
 This changelog lists all additions and updates to the Mekari product API, in chronological order.
 
+## Juny 07,2024
+
+{: .fw-300 }
+
+Updating webhook events documentation.
+
 ## February 26,2024
 
 {: .fw-300 }
