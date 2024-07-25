@@ -70,7 +70,7 @@ The code will look like this:
 
 datetime = Time.now.httpdate
 request_line = "POST /v2/klikpajak/v1/efaktur/out?auto_approval=false HTTP/1.1"
-payload = [datetime, request_line].join("\n")
+payload = ["date: #{datetime}", request_line].join("\n")
 digest = OpenSSL::HMAC.digest(OpenSSL::Digest.new('sha256'), 'YOUR_MEKARI_API_CLIENT_SECRET', payload)
 signature = Base64.strict_encode64(digest)
 
@@ -106,7 +106,7 @@ require 'faraday'
 
 datetime = Time.now.httpdate
 request_line = "POST /v2/klikpajak/v1/efaktur/out?auto_approval=false HTTP/1.1"
-payload = [datetime, request_line].join("\n")
+payload = ["date: #{datetime}", request_line].join("\n")
 digest = OpenSSL::HMAC.digest(OpenSSL::Digest.new('sha256'), ENV['MEKARI_API_CLIENT_SECRET'], payload)
 signature = Base64.strict_encode64(digest)
 
