@@ -2,11 +2,23 @@
 layout: default
 title: Changelog
 permalink: changelog
-nav_order: 5
+nav_order: 6
 ---
 # Changelog
 
 This changelog lists all additions and updates to the Mekari product API, in chronological order.
+
+## Sep 13,2024
+
+{: .fw-300 }
+
+Update header accept application/json HMAC Authentication for Node.js documentation.
+
+## June 14,2024
+
+{: .fw-300 }
+
+Adding Platform, Klikpajak, Qontak, Jurnal and Talenta webhooks documentation.
 
 ## Juny 07,2024
 

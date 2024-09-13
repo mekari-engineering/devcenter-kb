@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Webhooks
-permalink: /webhooks
+permalink: webhooks
 nav_order: 5
 has_children: true
 ---
