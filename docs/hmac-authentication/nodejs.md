@@ -154,6 +154,7 @@ It is important to note that we should not include any credentials in our codeba
 
 ```
 # .env file
+MEKARI_API_BASE_URL=https://api.mekari.com
 MEKARI_API_CLIENT_ID=YOUR_MEKARI_API_CLIENT_ID
 MEKARI_API_CLIENT_SECRET=YOUR_MEKARI_CLIENT_SECRET
 ```
@@ -197,6 +198,7 @@ function generate_headers(method, pathWithQueryParam) {
   let signature = crypto.createHmac('SHA256', process.env.MEKARI_API_CLIENT_SECRET).update(payload).digest('base64');
 
   return {
+    'Accept': 'application/json',
     'Content-Type': 'application/json',
     'Date': datetime,
     'Authorization': `hmac username="${process.env.MEKARI_API_CLIENT_ID}", algorithm="hmac-sha256", headers="date request-line", signature="${signature}"`

@@ -8,6 +8,12 @@ nav_order: 6
 
 This changelog lists all additions and updates to the Mekari product API, in chronological order.
 
+## Sep 13,2024
+
+{: .fw-300 }
+
+Update header accept application/json HMAC Authentication for Node.js documentation.
+
 ## June 14,2024
 
 {: .fw-300 }
