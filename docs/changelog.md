@@ -12,13 +12,20 @@ This changelog lists all additions and updates to the Mekari product API, in chr
 
 {: .fw-300 }
 
-Update header accept application/json HMAC Authentication for Node.js documentation.
+- Update header accept application/json HMAC Authentication for Node.js documentation.
+- Update header accept application/json HMAC Authentication and add MEKARI_API_BASE_URL in .env file for PHP documentation.
 
 ## June 14,2024
 
 {: .fw-300 }
 
 Adding Platform, Klikpajak, Qontak, Jurnal and Talenta webhooks documentation.
+
+## June 07,2024
+
+{: .fw-300 }
+
+Updating webhook events documentation.
 
 ## February 26,2024
 

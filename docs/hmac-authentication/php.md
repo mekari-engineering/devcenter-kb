@@ -146,6 +146,7 @@ It is important to note that we should not include any credentials in our codeba
 # .env file
 MEKARI_API_CLIENT_ID=YOUR_MEKARI_API_CLIENT_ID
 MEKARI_API_CLIENT_SECRET=YOUR_MEKARI_CLIENT_SECRET
+MEKARI_API_BASE_URL=https://api.mekari.com
 ```
 
 Then we use `$_ENV[]` to replace the credentials in the code.
@@ -201,6 +202,7 @@ function generate_headers($method, $pathWithQueryParam) {
     $signature      = base64_encode($digest);
     
     return [
+        'Accept'        => 'application/json',
         'Content-Type'  => 'application/json',
         'Date'          => $datetime,
         'Authorization' => "hmac username=\"{$_ENV['MEKARI_API_CLIENT_ID']}\", algorithm=\"hmac-sha256\", headers=\"date request-line\", signature=\"{$signature}\""
