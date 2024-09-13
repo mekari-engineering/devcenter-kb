@@ -21,7 +21,7 @@ This changelog lists all additions and updates to the Mekari product API, in chr
 
 Adding Platform, Klikpajak, Qontak, Jurnal and Talenta webhooks documentation.
 
-## Juny 07,2024
+## June 07,2024
 
 {: .fw-300 }
 
