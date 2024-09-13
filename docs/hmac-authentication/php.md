@@ -146,7 +146,7 @@ It is important to note that we should not include any credentials in our codeba
 # .env file
 MEKARI_API_CLIENT_ID=YOUR_MEKARI_API_CLIENT_ID
 MEKARI_API_CLIENT_SECRET=YOUR_MEKARI_CLIENT_SECRET
-MEKARI_API_BASE_URL=https://api.mekari.com/v2/klikpajak/v1
+MEKARI_API_BASE_URL=https://api.mekari.com
 ```
 
 Then we use `$_ENV[]` to replace the credentials in the code.
