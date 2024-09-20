@@ -28,8 +28,8 @@ The content of the file should look like this:
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -43,14 +43,14 @@ There will be only one dependency: [OkHttp](https://square.github.io/okhttp/4.x/
 
 To install the dependency simply add it under `dependencies` attribute on the `pom.xml`. The file will look something like this.
 
-```
+```xml
 <dependencies>
     <dependency>
         <groupId>com.squareup.okhttp3</groupId>
         <artifactId>okhttp</artifactId>
         <version>4.9.1</version>
     </dependency>
-<dependencies>
+</dependencies>
 ```
 
 ## Making API Request
@@ -61,6 +61,8 @@ Using OkHttp Client that we have installed earlier, we are going to setup a scri
 We create the script inside the main function:
 
 ```java
+public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
 public static void main(String[] args) {
 
     OkHttpClient client = new OkHttpClient();
@@ -234,6 +236,8 @@ public class HmacGeneratorApplication {
             .addHeader("Authorization",
                 generateAuthSignature(clientId, clientSecret, method, path + queryParam, dateFormatted)
             )
+            .addHeader("Content-Type", "application/json")
+            .addHeader("Accept", "application/json")
             .addHeader("x-idempotency-key", UUID.randomUUID().toString())
             .build();
 

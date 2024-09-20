@@ -8,12 +8,23 @@ nav_order: 6
 
 This changelog lists all additions and updates to the Mekari product API, in chronological order.
 
+## Sep 18,2024
+
+{: .fw-300 }
+
+Java Documentation:
+1. Add header ```Accept``` ```application/json```
+2. Add header ```Content-Type``` ```application/json```
+2. Declared JSON variable at Making API Request Section
+3. Changed ```<maven.compiler.source>``` and ```<maven.compiler.target>``` to 1.8 since Java 8 is denoted as 1.8.
+4. Corrected the missing closing tag ```</dependencies>```.
+
 ## Sep 13,2024
 
 {: .fw-300 }
 
-- Update header accept application/json HMAC Authentication for Node.js documentation.
-- Update header accept application/json HMAC Authentication and add MEKARI_API_BASE_URL in .env file for PHP documentation.
+- Update header Accept application/json HMAC Authentication for Node.js documentation.
+- Update header Accept application/json HMAC Authentication and add MEKARI_API_BASE_URL in .env file for PHP documentation.
 
 ## June 14,2024
 
