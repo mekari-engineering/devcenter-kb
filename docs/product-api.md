@@ -4,12 +4,12 @@ title: Product APIs
 permalink: product-api
 nav_order: 4
 ---
-
 # Product APIs
 
 Currently we documents the detail of API that we provide for you in Postman Collection. Feel free to explore the APIs details below.
 
 ## Talenta
+
 {: .fw-300 }
 
 <span class="fs-3">
@@ -17,6 +17,7 @@ Currently we documents the detail of API that we provide for you in Postman Coll
 </span>
 
 ## Klikpajak
+
 {: .fw-300 }
 
 <span class="fs-3">
@@ -24,6 +25,7 @@ Currently we documents the detail of API that we provide for you in Postman Coll
 </span>
 
 ## Qontak OmniChannel
+
 {: .fw-300 }
 
 <span class="fs-3">
@@ -31,6 +33,7 @@ Currently we documents the detail of API that we provide for you in Postman Coll
 </span>
 
 ## Qontak CRM
+
 {: .fw-300 }
 
 <span class="fs-3">
@@ -38,6 +41,7 @@ Currently we documents the detail of API that we provide for you in Postman Coll
 </span>
 
 ## Jurnal API
+
 {: .fw-300 }
 
 <span class="fs-3">
@@ -45,6 +49,7 @@ Currently we documents the detail of API that we provide for you in Postman Coll
 </span>
 
 ## Mekari Payment API
+
 {: .fw-300 }
 
 <span class="fs-3">
@@ -52,32 +57,17 @@ Currently we documents the detail of API that we provide for you in Postman Coll
 </span>
 
 ## Mekari Core Payment Service
+
 {: .fw-300 }
 
 <span class="fs-3">
 [Mekari Core Payment Service](https://developers.mekari.io/openapi/view/mid-kelola-indonesia/corepayment-service/src/master/api/openapi.yml#/){: .btn }
 </span>
 
-
 ## KYC Service - Backend API
+
 {: .fw-300 }
 
 <span class="fs-3">
 [KYC Service - Backend API](https://developers.mekari.io/openapi/view/mid-kelola-indonesia/kyc-service-backend/src/master/api/openapi.yml#/){: .btn }
-</span>
-
-
-## Mekari Payment API
-{: .fw-300 }
-
-<span class="fs-3">
-[Postman Collections Mekari Payment API](https://documenter.getpostman.com/view/6530903/TWDUryvy#intro){: .btn }
-</span>
-
-
-## Mekari Payment API
-{: .fw-300 }
-
-<span class="fs-3">
-[Postman Collections Mekari Payment API](https://documenter.getpostman.com/view/6530903/TWDUryvy#intro){: .btn }
 </span>
