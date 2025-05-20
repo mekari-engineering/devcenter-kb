@@ -56,7 +56,7 @@ To install the dependency simply add it under `dependencies` attribute on the `p
 ## Making API Request
 {: .fw-300 }
 
-Using OkHttp Client that we have installed earlier, we are going to setup a script that will perform API request to one of Klikpajak API endpoint which is [create sales invoice](https://documenter.getpostman.com/view/17365057/U16hrR5d#63ba32aa-0f91-44a5-ab40-a0da6a8bf608) (`https://api.mekari.com/v2/klikpajak/v1/efaktur/out`). 
+Using OkHttp Client that we have installed earlier, we are going to setup a script that will perform API request to one of [Klikpajak](https://klikpajak.id) API endpoint which is [create sales invoice](https://documenter.getpostman.com/view/17365057/U16hrR5d#63ba32aa-0f91-44a5-ab40-a0da6a8bf608) (`https://api.mekari.com/v2/klikpajak/v1/efaktur/out`). 
 
 We create the script inside the main function:
 

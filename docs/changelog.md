@@ -30,7 +30,7 @@ Java Documentation:
 
 {: .fw-300 }
 
-Adding Platform, Klikpajak, Qontak, Jurnal and Talenta webhooks documentation.
+Adding Platform, [Klikpajak](https://klikpajak.id), Qontak, [Jurnal](https://jurnal.id) and Talenta webhooks documentation.
 
 ## June 07,2024
 
@@ -42,7 +42,7 @@ Updating webhook events documentation.
 
 {: .fw-300 }
 
-Adding jurnal api docs, mekari pay service, kyc-backend api documentation.
+Adding [jurnal](https://jurnal.id) api docs, mekari pay service, kyc-backend api documentation.
 
 
 ## February 22, 2024
