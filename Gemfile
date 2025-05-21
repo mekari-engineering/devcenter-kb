@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 gem "jekyll", ">= 4.2.0"
-gem "just-the-docs", git: 'https://github.com/fians/just-the-docs.git', branch: 'jekyll-4.2.0'
+gem "just-the-docs"
 
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem
 # and associated library.

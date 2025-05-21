@@ -28,7 +28,6 @@ github_username:  mekari-engineering
 
 # Build settings
 theme: just-the-docs
-remote_theme: fians/just-the-docs
 
 # Disable aux links
 aux_links: false
