@@ -10,7 +10,7 @@ grand_parent: Webhooks
 
 ## Prequisite to Consume
 {: .fw-300 }
-1. Feature sales invoice webhook for that company is active in Jurnal
+1. Feature sales invoice webhook for that company is active in [Jurnal](https://jurnal.id)
 2. User need to create new sales invoice
 
 ## Event

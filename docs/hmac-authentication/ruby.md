@@ -38,7 +38,7 @@ gem 'dotenv'
 ## Making API Request
 {: .fw-300 }
 
-Using Faraday and Dotenv that we have installed earlier, we are going to setup Ruby script that will perform API request to one of Klikpajak API endpoint which is [create sales invoice](https://documenter.getpostman.com/view/17365057/U16hrR5d#63ba32aa-0f91-44a5-ab40-a0da6a8bf608) (`https://api.mekari.com/v2/klikpajak/v1/efaktur/out`). 
+Using Faraday and Dotenv that we have installed earlier, we are going to setup Ruby script that will perform API request to one of [Klikpajak](https://klikpajak.id) API endpoint which is [create sales invoice](https://documenter.getpostman.com/view/17365057/U16hrR5d#63ba32aa-0f91-44a5-ab40-a0da6a8bf608) (`https://api.mekari.com/v2/klikpajak/v1/efaktur/out`). 
 
 We create the script called `main.rb` then use Faraday to perform the HTTP POST request. This is how the script will looks like:
 

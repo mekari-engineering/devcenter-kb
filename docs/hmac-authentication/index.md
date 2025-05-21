@@ -23,7 +23,7 @@ If you have multiple Mekari product subscriptions, you must have HMAC client cre
 
 ![](/docs/kb/assets/images/hmac-auth-flow-3.png)
 
-Currently, one HMAC credential is also limited to each Mekari product, which means that if your company subscribes to multiple Mekari products (for example, Talenta and Klikpajak), you must create one HMAC credential for each product API you wish to access.
+Currently, one HMAC credential is also limited to each Mekari product, which means that if your company subscribes to multiple Mekari products (for example, Talenta and [Klikpajak](https://klikpajak.id)), you must create one HMAC credential for each product API you wish to access.
 
 ## HMAC Credentials
 {: .fw-300 }
