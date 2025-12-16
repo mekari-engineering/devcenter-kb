@@ -34,7 +34,7 @@ Currently we documents the detail of API that we provide for you in Postman Coll
 {: .fw-300 }
 
 <span class="fs-3">
-[Postman Collections Qontak CRM API](https://documenter.getpostman.com/view/22728681/VUxPtmj8){: .btn }
+[Postman Collections Qontak CRM API MAG](https://documenter.getpostman.com/view/22728681/2sAXxV6A5V){: .btn }
 </span>
 
 ## Jurnal API
