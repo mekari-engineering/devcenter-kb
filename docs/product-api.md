@@ -41,5 +41,5 @@ Currently we documents the detail of API that we provide for you in Postman Coll
 {: .fw-300 }
 
 <span class="fs-3">
-[Jurnal Api Stoplight Documentation](https://api-doc.jurnal.id){: .btn }
+[Jurnal Api Documentation](https://api-doc.jurnal.id){: .btn }
 </span>
