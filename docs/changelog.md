@@ -13,7 +13,7 @@ This changelog lists all additions and updates to the Mekari product API, in chr
 
 {: .fw-300 }
 
-Add API documentation for the [Expense](https://expense.mekari.com/) platform.
+Add API documentation for the [Mekari Expense](https://expense.mekari.com/) platform.
 
 ## Sep 18,2024
 

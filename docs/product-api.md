@@ -49,10 +49,10 @@ Currently we documents the detail of API that we provide for you in Postman Coll
 [Jurnal Api Documentation](https://api-doc.jurnal.id){: .btn }
 </span>
 
-## Expense API
+## Mekari Expense API
 
 {: .fw-300 }
 
 <span class="fs-3">
-[Expense API Documentation](https://api-docs.expense.mekari.com){: .btn }
+[Mekari Expense API Documentation](https://api-docs.expense.mekari.com){: .btn }
 </span>
