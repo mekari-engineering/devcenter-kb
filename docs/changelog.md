@@ -4,20 +4,28 @@ title: Changelog
 permalink: changelog
 nav_order: 6
 ---
+
 # Changelog
 
 This changelog lists all additions and updates to the Mekari product API, in chronological order.
+
+## February 23, 2025
+
+{: .fw-300 }
+
+Add API documentation for the [Mekari Expense](https://expense.mekari.com/) platform.
 
 ## Sep 18,2024
 
 {: .fw-300 }
 
 Java Documentation:
-1. Add header ```Accept``` ```application/json```
-2. Add header ```Content-Type``` ```application/json```
-2. Declared JSON variable at Making API Request Section
-3. Changed ```<maven.compiler.source>``` and ```<maven.compiler.target>``` to 1.8 since Java 8 is denoted as 1.8.
-4. Corrected the missing closing tag ```</dependencies>```.
+
+1. Add header `Accept` `application/json`
+2. Add header `Content-Type` `application/json`
+3. Declared JSON variable at Making API Request Section
+4. Changed `<maven.compiler.source>` and `<maven.compiler.target>` to 1.8 since Java 8 is denoted as 1.8.
+5. Corrected the missing closing tag `</dependencies>`.
 
 ## Sep 13,2024
 
@@ -43,7 +51,6 @@ Updating webhook events documentation.
 {: .fw-300 }
 
 Adding [jurnal](https://jurnal.id) api docs, mekari pay service, kyc-backend api documentation.
-
 
 ## February 22, 2024
 
