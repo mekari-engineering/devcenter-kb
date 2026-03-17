@@ -142,3 +142,21 @@ curl --request POST 'https://examples.com/foo/bar?hello=world' \
 
 The actual implementation may differ depending on the programming language used. Please consider looking at to see the examples of the code below.
 
+## Error Codes
+{: .fw-300 }
+
+| Code | Root Cause |
+|--|--|
+| MAG-001 | Malformed JWT on Authorization header. |
+| MAG-002 | Some required parameter is not available. |
+| MAG-003 | Application is not found. |
+| MAG-004 | User is not found. |
+| MAG-005 | Service (client ID) is not found. |
+| MAG-006 | Data Service Scope (end point) is not found. |
+| MAG-007 | Company is not found. |
+| MAG-008 | Current scope is not allowed for accessing end point. |
+| MAG-009 | Given user ID is not mapped yet to selected application. |
+| MAG-010 | Given company ID is not authorized to access the data. |
+| MAG-011 | Auth strategy is not supported by MAG (currently MAG only support OAuth2 and HMAC Auth) |
+| MAG-012 | Malformed HMAC token on Authorization header. |
+
