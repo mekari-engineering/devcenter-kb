@@ -9,6 +9,12 @@ nav_order: 6
 
 This changelog lists all additions and updates to the Mekari product API, in chronological order.
 
+## October 27, 2026
+
+{: .fw-300 }
+
+Add API documentation for the Mekari POS platform. See [Mekari POS API Documentation](https://api-docs-pos.mekari.com).
+
 ## February 23, 2025
 
 {: .fw-300 }

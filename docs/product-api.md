@@ -64,3 +64,11 @@ Currently we documents the detail of API that we provide for you in Postman Coll
 <span class="fs-3">
 [Mekari Sign API Documentation](https://api-docs.esign.mekari.com){: .btn }
 </span>
+
+## Mekari POS API
+
+{: .fw-300 }
+
+<span class="fs-3">
+[Mekari POS API Documentation](https://api-docs-pos.mekari.com){: .btn }
+</span>
